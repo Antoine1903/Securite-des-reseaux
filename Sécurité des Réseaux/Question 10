@@ -1,0 +1,22 @@
+10) (a) :
+Dans un fichier LDIF un attribut peut être écrit de deux manières :
+attribut: valeur
+attribut:: valeur_encodée
+Le "::" désigne l'encodage en Base64 de la valeur de l'attribut.
+Cela peut se produire lorsque la valeur contient des caractères non-ASCII, commence par un espace où contient des sauts de ligne.
+
+(b) :
+L'attribut User ID (uid) est unique dans la branche et sert de clé d'identification pour chaque utilisateur (souvent ou=people). Il est utilisé dans le Distinguished Name (DN), exemple :
+uid=john.doe,ou=people,dc=lerebours,dc=fr.
+Il serait impossible d'identifier correctement les utilisateurs sans uid unique car il évite justement les collisions entre comptes.
+
+(c) :
+Il est possible de mettre en place une réplication en utilisant syncrepl entre plusieurs serveurs LDAP et avoir ainsi plusieurs serveurs synchronisés et qu'en cas de panne de l'un d'eux, un autre prenne le relais.
+Il faut sauvegarder régulièrement l'annuaire et installer des outils de monitoring pour détecter les pannes.
+
+(d) :
+On active le chiffrement TLS en configurant ldaps:// ou StartTLS sur ldap://.
+On limite les accès avec des ACL pour protéger certains attributs et les garder confidentiels.
+Utiliser des hachages forts pour le mot de passe administrateur, mais {SSHA} est déjà efficace.
+Il est important de journaliser les accès et modifications avec l'activation de auditlog pour pouvoir retracer tout changement.
+Enfin, le processus slapd doit plutôt tourner avec un compte non privilégié car la restriction des droits système permet d'éviter des erreurs qui peuvent compromettre la sécurité et le fonctionnement de l'annuaire OpenLDAP.
