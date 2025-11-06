@@ -1,3 +1,14 @@
+9) :
+On obtient l'erreur suivante au moment d'exécuter la commande ldapadd si les attributs techniques créés par OpenLDAP ne sont pas supprimés :
+ldap_add: Constraint violation (19)
+	additional info: structuralObjectClass: no user modification allowed
+Les attributs sont :
+structuralObjectClass, entryUUID, entryCSN, creatorsName, createTimestamp, modifiersName, modifyTimestamp.
+
+
+
+
+
 10) (a) :
 Dans un fichier LDIF un attribut peut être écrit de deux manières :
 attribut: valeur
